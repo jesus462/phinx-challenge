@@ -1,10 +1,11 @@
 import React from "react";
 
 import { Navbar } from "../component/Navbar";
+import { HeroCard } from "../component/HeroCard";
 
 export const Home = () => (
 	<div>
 		<Navbar />
-		<h1>Hello!</h1>
+		<HeroCard />
 	</div>
 );
