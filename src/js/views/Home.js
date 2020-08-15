@@ -1,7 +1,10 @@
 import React from "react";
 
+import { Navbar } from "../component/Navbar";
+
 export const Home = () => (
-	<div className="text-center mt-5">
+	<div>
+		<Navbar />
 		<h1>Hello!</h1>
 	</div>
 );

@@ -10,14 +10,14 @@ const Layout = () => {
 	return (
 		<div className="d-flex flex-column h-100">
 			<BrowserRouter basename={basename}>
-					<Switch>
-						<Route exact path="/">
-							<Home />
-						</Route>
-						<Route>
-							<h1>Not found!</h1>
-						</Route>
-					</Switch>
+				<Switch>
+					<Route exact path="/">
+						<Home />
+					</Route>
+					<Route>
+						<h1>Not found!</h1>
+					</Route>
+				</Switch>
 			</BrowserRouter>
 		</div>
 	);
