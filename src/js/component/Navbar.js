@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import Context from "../store/Context";
+import { Context } from "../store/Context";
 import styled from "styled-components";
 
 const Nav = styled.nav`
@@ -7,6 +7,10 @@ const Nav = styled.nav`
 	justify-content: space-evenly;
 	padding: 12px 12px;
 	box-shadow: 0 2px 3px rgba(0, 0, 0, 0.11);
+	position: sticky;
+	top: 0;
+	background-color: white;
+	z-index: 20;
 `;
 const Logo = styled.img`
 	width: 70px;

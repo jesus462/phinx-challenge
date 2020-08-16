@@ -1,16 +1,21 @@
 import React, { useState, useContext } from "react";
-import Context from "../store/Context";
+import { Context } from "../store/Context";
+import PropTypes from "prop-types";
 import styled from "styled-components";
 
 const Card = styled.div`
 	margin: 10px 10px;
 	width: 260px;
-	height: 380px;
+	height: 360px;
 	border: 1px solid black;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
 	position: relative;
+	@media (max-width: 605px) {
+		width: 120px;
+		height: 220px;
+	}
 `;
 const Image = styled.img`
 	height: 100%;
@@ -23,19 +28,30 @@ const Text = styled.p`
 	margin: 15px;
 	color: white;
 	text-align: ${props => (props.right ? "right" : "left")};
+
+	span {
+		background-color: rgba(0, 0, 0, 0.2);
+		border-radius: 7.5px;
+		padding: 2px;
+	}
 `;
 
-export const HeroCard = () => {
+export const HeroCard = ({ character }) => {
 	return (
 		<Card>
-			<Image
-				src="https://res.cloudinary.com/duu99bl6f/image/upload/v1597508080/Phinx/marvel-logo.png"
-				alt="Marvel logo"
-			/>
+			<Image src={`${character.thumbnail.path}.${character.thumbnail.extension}`} alt={character.name} />
 			<Text right>
-				<i className="far fa-star" />
+				<span>
+					<i className="far fa-star" />
+				</span>
 			</Text>
-			<Text>Name</Text>
+			<Text>
+				<span>{character.name}</span>
+			</Text>
 		</Card>
 	);
+};
+
+HeroCard.propTypes = {
+	character: PropTypes.object
 };
