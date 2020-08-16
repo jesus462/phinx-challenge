@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Context } from "../store/Context";
 import styled from "styled-components";
 
@@ -37,13 +37,35 @@ const Icon = styled.i`
 `;
 
 export const Navbar = () => {
+	const { store, actions } = useContext(Context);
+
+	const [search, setSearch] = useState("");
+
+	const handleChangeSearh = e => {
+		setSearch(e.target.value);
+		window.scrollTo(0, 0);
+		actions.setLoading(store.loading);
+	};
+
+	useEffect(
+		() => {
+			actions.fetchCharacters(search);
+		},
+		[search]
+	);
 	return (
 		<Nav>
 			<Logo
 				src="https://res.cloudinary.com/duu99bl6f/image/upload/v1597508080/Phinx/marvel-logo.png"
 				alt="Marvel logo"
 			/>
-			<SearchBar className="fas fa-search" placeholder="&#xf002; Buscar" />
+			<SearchBar
+				value={search}
+				onChange={handleChangeSearh}
+				type="text"
+				className="fas fa-search"
+				placeholder="&#xf002; Search"
+			/>
 			<Icon className="far fa-star" />
 		</Nav>
 	);

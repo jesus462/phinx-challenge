@@ -13,8 +13,9 @@ const Card = styled.div`
 	justify-content: space-between;
 	position: relative;
 	@media (max-width: 605px) {
-		width: 120px;
+		width: 140px;
 		height: 220px;
+		margin: 10px 5px;
 	}
 `;
 const Image = styled.img`
@@ -28,10 +29,11 @@ const Text = styled.p`
 	margin: 15px;
 	color: white;
 	text-align: ${props => (props.right ? "right" : "left")};
+	font-size: 20px;
 
 	span {
 		background-color: rgba(0, 0, 0, 0.2);
-		border-radius: 7.5px;
+		border-radius: 14px;
 		padding: 2px;
 	}
 `;

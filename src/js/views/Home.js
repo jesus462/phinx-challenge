@@ -11,6 +11,9 @@ const ContainerCards = styled.div`
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: space-evenly;
+	@media (max-width: 605px) {
+		width: 97%;
+	}
 `;
 
 export const Home = () => {
@@ -28,7 +31,7 @@ export const Home = () => {
 	return (
 		<div>
 			<Navbar />
-			<ContainerCards>{mappedHeroCard}</ContainerCards>
+			<ContainerCards>{store.loading ? <h1>loading...</h1> : mappedHeroCard}</ContainerCards>
 		</div>
 	);
 };

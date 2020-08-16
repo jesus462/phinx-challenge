@@ -6,7 +6,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 	return {
 		store: {
-			characters: []
+			characters: [],
+			loading: true
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
@@ -29,6 +30,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 					if (response.ok) {
 						let JSONresponse = await response.json();
 						resources = JSONresponse.data.results;
+						setStore({
+							characters: resources,
+							loading: false
+						});
 						console.log("All Good!!!");
 					} else {
 						console.log(response.status);
@@ -36,10 +41,13 @@ const getState = ({ getStore, getActions, setStore }) => {
 				} catch (err) {
 					console.log(err);
 				}
-
-				setStore({
-					characters: resources
-				});
+			},
+			setLoading: value => {
+				if (value === true) {
+					setStore({ loading: false });
+				} else {
+					setStore({ loading: true });
+				}
 			}
 		}
 	};
