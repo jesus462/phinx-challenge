@@ -1,12 +1,15 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Context } from "../store/Context";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 
+import { ComicsModal } from "./ComicsModal";
+import { useModal } from "../utils/useModal";
+
 const Card = styled.div`
-	margin: 10px 10px;
-	width: 260px;
-	height: 360px;
+	margin: 15px;
+	width: 240px;
+	height: 340px;
 	border: 1px solid black;
 	display: flex;
 	flex-direction: column;
@@ -14,7 +17,7 @@ const Card = styled.div`
 	position: relative;
 	@media (max-width: 605px) {
 		width: 140px;
-		height: 220px;
+		height: 240px;
 		margin: 10px 5px;
 	}
 `;
@@ -39,18 +42,29 @@ const Text = styled.p`
 `;
 
 export const HeroCard = ({ character }) => {
+	const { store, actions } = useContext(Context);
+
+	const { show, toggle } = useModal();
+	const handleShow = () => {
+		actions.fetchCharacterComic(character.comics.collectionURI);
+		toggle();
+	};
+
 	return (
-		<Card>
-			<Image src={`${character.thumbnail.path}.${character.thumbnail.extension}`} alt={character.name} />
-			<Text right>
-				<span>
-					<i className="far fa-star" />
-				</span>
-			</Text>
-			<Text>
-				<span>{character.name}</span>
-			</Text>
-		</Card>
+		<React.Fragment>
+			<Card onClick={handleShow}>
+				<Image src={`${character.thumbnail.path}.${character.thumbnail.extension}`} alt={character.name} />
+				<Text right>
+					<span>
+						<i className="far fa-star" />
+					</span>
+				</Text>
+				<Text>
+					<span>{character.name}</span>
+				</Text>
+			</Card>
+			<ComicsModal character={character} show={show} hide={toggle} />
+		</React.Fragment>
 	);
 };
 

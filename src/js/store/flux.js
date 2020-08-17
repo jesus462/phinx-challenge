@@ -7,7 +7,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
 			characters: [],
-			loading: true
+			loadingCharacters: true,
+			noMatchCharacter: false,
+			characterComics: [],
+			loadingComics: true
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
@@ -30,10 +33,19 @@ const getState = ({ getStore, getActions, setStore }) => {
 					if (response.ok) {
 						let JSONresponse = await response.json();
 						resources = JSONresponse.data.results;
-						setStore({
-							characters: resources,
-							loading: false
-						});
+						if (resources.length > 0) {
+							setStore({
+								characters: resources,
+								loadingCharacters: false,
+								noMatchCharacter: false
+							});
+						} else {
+							setStore({
+								characters: resources,
+								loadingCharacters: false,
+								noMatchCharacter: true
+							});
+						}
 						console.log("All Good!!!");
 					} else {
 						console.log(response.status);
@@ -42,12 +54,36 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log(err);
 				}
 			},
-			setLoading: value => {
-				if (value === true) {
-					setStore({ loading: false });
-				} else {
-					setStore({ loading: true });
+			fetchCharacterComic: async APIComicsUrl => {
+				let resources = [];
+
+				try {
+					let response = await fetch(`${APIComicsUrl}?ts=${timeStamp}&apikey=${APIkey}&hash=${hash}`, {
+						method: "GET",
+						headers: {
+							"Content-Type": "application/JSON"
+						}
+					});
+					if (response.ok) {
+						let JSONresponse = await response.json();
+						resources = JSONresponse.data.results;
+						setStore({
+							characterComics: resources,
+							loadingComics: false
+						});
+						console.log("Good, comics!!!");
+					} else {
+						console.log(response.status);
+					}
+				} catch (err) {
+					console.log(err);
 				}
+			},
+			setLoadingCharacters: value => {
+				setStore({ loadingCharacters: !value });
+			},
+			setLoadingComics: value => {
+				setStore({ loadingComics: !value });
 			}
 		}
 	};

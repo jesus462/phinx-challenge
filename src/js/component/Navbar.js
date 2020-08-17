@@ -10,7 +10,7 @@ const Nav = styled.nav`
 	position: sticky;
 	top: 0;
 	background-color: white;
-	z-index: 20;
+	z-index: 1;
 `;
 const Logo = styled.img`
 	width: 70px;
@@ -44,7 +44,7 @@ export const Navbar = () => {
 	const handleChangeSearh = e => {
 		setSearch(e.target.value);
 		window.scrollTo(0, 0);
-		actions.setLoading(store.loading);
+		actions.setLoadingCharacters(store.loadingCharacters);
 	};
 
 	useEffect(
