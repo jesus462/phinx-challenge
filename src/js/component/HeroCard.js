@@ -20,6 +20,13 @@ const Card = styled.div`
 		height: 240px;
 		margin: 10px 5px;
 	}
+
+	:hover,
+	:active {
+		opacity: 0.95;
+		box-shadow: 0 10px 10px rgba(0, 0, 0, 1);
+		cursor: pointer;
+	}
 `;
 const Image = styled.img`
 	height: 100%;
@@ -41,7 +48,7 @@ const Text = styled.p`
 	}
 `;
 
-export const HeroCard = ({ character }) => {
+export const HeroCard = ({ character, check, setCheck }) => {
 	const { store, actions } = useContext(Context);
 
 	const { show, toggle } = useModal();
@@ -50,13 +57,34 @@ export const HeroCard = ({ character }) => {
 		toggle();
 	};
 
+	let favoriteChecker = store.favorites.characters.filter(favorite => {
+		return favorite.id === character.id;
+	});
+	const [favorite, setFavorite] = useState(favoriteChecker.length > 0 ? true : false);
+	const addFavorite = e => {
+		e.stopPropagation(); // Prevent that the onClick of the Card component gets trigger when favorite is clicked
+		if (favorite) {
+			setFavorite(!favorite);
+			let newFavoritesArray = store.favorites.characters.filter(favorite => {
+				return favorite.id != character.id;
+			});
+			store.favorites.characters = newFavoritesArray;
+			if (check != undefined) {
+				setCheck(!check);
+			}
+		} else {
+			setFavorite(!favorite);
+			store.favorites.characters.push(character);
+		}
+	};
+
 	return (
 		<React.Fragment>
 			<Card onClick={handleShow}>
 				<Image src={`${character.thumbnail.path}.${character.thumbnail.extension}`} alt={character.name} />
 				<Text right>
-					<span>
-						<i className="far fa-star" />
+					<span onClick={addFavorite}>
+						{favorite ? <i className="fas fa-star" /> : <i className="far fa-star" />}
 					</span>
 				</Text>
 				<Text>
@@ -69,5 +97,7 @@ export const HeroCard = ({ character }) => {
 };
 
 HeroCard.propTypes = {
+	setCheck: PropTypes.func,
+	check: PropTypes.bool,
 	character: PropTypes.object
 };

@@ -2,6 +2,8 @@ import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 import { Home } from "./views/Home";
+import { Comic } from "./views/Comic";
+import { Favorite } from "./views/Favorite";
 import injectContext from "./store/Context";
 
 const Layout = () => {
@@ -13,6 +15,12 @@ const Layout = () => {
 				<Switch>
 					<Route exact path="/">
 						<Home />
+					</Route>
+					<Route exact path="/Comic">
+						<Comic />
+					</Route>
+					<Route exact path="/Favorite">
+						<Favorite />
 					</Route>
 					<Route>
 						<h1>Not found!</h1>

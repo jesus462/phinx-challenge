@@ -10,7 +10,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 			loadingCharacters: true,
 			noMatchCharacter: false,
 			characterComics: [],
-			loadingComics: true
+			loadingComics: true,
+			comic: [],
+			favorites: {
+				characters: [],
+				comics: []
+			}
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
@@ -84,6 +89,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 			setLoadingComics: value => {
 				setStore({ loadingComics: !value });
+			},
+			setComic: value => {
+				setStore({ comic: [value] });
 			}
 		}
 	};

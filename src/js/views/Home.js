@@ -2,13 +2,13 @@ import React, { useState, useContext } from "react";
 import { Context } from "../store/Context";
 import styled from "styled-components";
 
-import { Navbar } from "../component/Navbar";
 import { HeroCard } from "../component/HeroCard";
+import { Navbar } from "../component/Navbar";
 
 const ContainerCards = styled.div`
 	width: 93%;
-	margin: 0 auto;
-	padding: 52px 0;
+	margin: 53px auto 0;
+	padding: 35px 0;
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
@@ -22,7 +22,9 @@ const TextLoading = styled.h2`
 	animation-name: loading;
 	animation-duration: 0.6s;
 	animation-iteration-count: infinite;
-
+	@media (max-width: 700px) {
+		font-size: 20px;
+	}
 	@keyframes loading {
 		0% {
 			color: #212529;
@@ -37,6 +39,9 @@ const TextLoading = styled.h2`
 `;
 const TextMatch = styled.h2`
 	text-align: center;
+	@media (max-width: 700px) {
+		font-size: 20px;
+	}
 `;
 
 export const Home = () => {
@@ -65,12 +70,12 @@ export const Home = () => {
 	};
 
 	return (
-		<div>
+		<React.Fragment>
 			<Navbar />
 			<ContainerCards>
 				{noMatchConditionalRender()}
 				{store.loadingCharacters ? <TextLoading>loading...</TextLoading> : mappedHeroCard}
 			</ContainerCards>
-		</div>
+		</React.Fragment>
 	);
 };

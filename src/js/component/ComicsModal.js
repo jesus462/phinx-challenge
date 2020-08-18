@@ -34,7 +34,7 @@ const Modal = styled.div`
 	border-radius: 10px;
 	width: 350px;
 	height: 60%;
-	overflow-y: auto;
+	overflow-y: scroll;
 	@media (max-width: 400px) {
 		width: 90%;
 	}
@@ -48,7 +48,6 @@ const Header = styled.div`
 	box-shadow: 0 2px 3px rgba(0, 0, 0, 0.11);
 `;
 const Main = styled.div`
-	padding: 10px 15px;
 	width: 100%;
 `;
 const Title = styled.p`
@@ -60,15 +59,20 @@ const Title = styled.p`
 const Button = styled.button`
 	height: 90%;
 	margin: auto 0;
-	font-size: 20px;
+	font-size: 15px;
 	font-weight: bold;
+	:hover,
+	:active {
+		opacity: 0.8;
+		cursor: pointer;
+	}
 `;
 const TextLoading = styled.h5`
 	text-align: center;
 	transition: opacity 04s ease-in-out;
 	transition-property: opacity;
 	animation-name: loading;
-	animation-duration: 0.3s;
+	animation-duration: 0.4s;
 	animation-iteration-count: infinite;
 
 	@keyframes loading {
@@ -89,13 +93,14 @@ const TextMatch = styled.h5`
 
 export const ComicsModal = ({ show, hide, character }) => {
 	const { store, actions } = useContext(Context);
+
 	let comicssWithImage = store.characterComics.filter(comic => {
 		const noImageUrl = "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available";
 
 		return comic.thumbnail.path != noImageUrl;
 	});
 	let mappedComics = comicssWithImage.map(comic => {
-		return <ComicsDescription key={comic.id} comic={comic} />;
+		return <ComicsDescription key={comic.id} comic={comic} hide={hide} />;
 	});
 
 	const noMatchConditionalRender = () => {
@@ -113,6 +118,7 @@ export const ComicsModal = ({ show, hide, character }) => {
 	const handleClose = () => {
 		actions.setLoadingComics(store.loadingComics);
 		hide();
+		store.characterComics.length = 0;
 	};
 
 	return show
