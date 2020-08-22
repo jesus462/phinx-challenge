@@ -1,5 +1,5 @@
 const getState = ({ getStore, getActions, setStore }) => {
-	const APIurl = "http://gateway.marvel.com/v1/public/";
+	const APIurl = "https://gateway.marvel.com/v1/public/";
 	const APIkey = "68ae068a26531d4f74e599e28494d5db";
 	const timeStamp = "1";
 	const hash = "762b7ecb8ae6158120a012769dfe88fb";

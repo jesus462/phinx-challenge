@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 
 import { stringChecker } from "../utils/stringChecker";
+import { addHttps } from "../utils/addHttps";
 
 const LinkContainer = styled(Link)`
 	text-decoration: none;
@@ -71,7 +72,7 @@ export const ComicsDescription = ({ comic, hide }) => {
 
 	return (
 		<LinkContainer to="/Comic" onClick={handleClickComic}>
-			<ComicImage src={`${comic.thumbnail.path}.${comic.thumbnail.extension}`} alt={comic.title} />
+			<ComicImage src={`${addHttps(comic.thumbnail.path)}.${comic.thumbnail.extension}`} alt={comic.title} />
 			<ComicInfo>
 				<Info title>
 					{comic.title}{" "}
